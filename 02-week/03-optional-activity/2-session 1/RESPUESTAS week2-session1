@@ -1,1 +1,71 @@
+MODELADO GESTION DE BASE DE DATOS - SEMANA 2, SESION 1
+Pregunta para reflexionar: ¿Qué otras entidades podrían ser necesarias en un sistema académico real? Piensa en: aulas, horarios, prerrequisitos, calificaciones parciales...
+Otras entidades necesarias en un sistema académico real
+1. AULA: Permite gestionar los espacios físicos donde se dictan clases.
+Atributos posibles:
+código_aula (PK)
+edificio
+capacidad
+tipo (laboratorio, salón teórico, auditorio)
+Se relacionaría con ASIGNATURA o con una entidad intermedia como GRUPO.
 
+2. HORARIO: Para organizar días y horas de clase.
+Atributos posibles:
+id_horario (PK)
+día
+hora_inicio
+hora_fin
+Podría relacionarse con DOCENTE, ASIGNATURA y AULA.
+
+3. GRUPO:En la realidad, una asignatura puede tener varios grupos.
+Atributos posibles:
+id_grupo (PK)
+número_grupo
+cupo_maximo
+periodo
+ Relaciona:
+ASIGNATURA
+DOCENTE
+AULA
+ESTUDIANTE (a través de inscripción)
+Esto hace el modelo más realista que solo “estudiante cursa asignatura”.
+
+4. PRERREQUISITO: Algunas materias requieren haber aprobado otras.
+Podría modelarse como:
+Una relación recursiva en ASIGNATURA
+(ASIGNATURA requiere ASIGNATURA)
+o como una entidad intermedia:
+id_prerrequisito
+asignatura_base
+asignatura_requerida
+
+5. CALIFICACIÓN PARCIAL:Actualmente solo aparece nota_final, pero en la vida real existen:
+Parcial 1
+Parcial 1
+Talleres
+Proyecto final
+Podría existir una entidad:
+EVALUACIÓN
+id_evaluacion (PK)
+tipo (parcial, taller, examen final)
+porcentaje
+Relacionada con:
+GRUPO
+ESTUDIANTE
+
+6. MATRÍCULA: En muchos sistemas se maneja como entidad propia:
+id_matricula (PK)
+fecha
+estado
+valor_pagado
+Relaciona:
+ESTUDIANTE
+PERIODO_ACADÉMICO
+
+7. PERIODO_ACADÉMICO
+Muy importante en un sistema real.
+id_periodo (PK)
+año
+semestre
+fecha_inicio
+fecha_fin
